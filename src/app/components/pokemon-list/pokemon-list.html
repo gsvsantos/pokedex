@@ -1,0 +1,24 @@
+<main class="container my-3 px-5">
+  <h1 class="my-3">Pokedex v0.0.1</h1>
+  <h3 class="my-2">O MELHOR: {{ theBest.toUpperCase() }}</h3>
+  <hr>
+  <div class="row g-3">
+    @for (pokemon of pokemons; track pokemon.name) {
+    <div class="col-lg-2 col-md-6 col-sm-10">
+      <div class="card text-center">
+        <p class="card-title fw-bolder fs-4">
+          {{ pokemon.name }}
+        </p>
+        <div class="d-flex justify-content-center gap-2">
+          @for (tipo of pokemon.types; track $index){
+            <span class="badge rounded-pill text-light fs-6" [ngClass]="colorByTypeMapping[tipo]">
+              {{tipo}}
+            </span>
+          }
+        </div>
+        <img class="w-50 h-75 align-self-center" [src]="pokemon.urlSprite" [alt]="pokemon.name" />
+      </div>
+    </div>
+    }
+  </div>
+</main>
