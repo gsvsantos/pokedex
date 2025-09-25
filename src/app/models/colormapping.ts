@@ -1,3 +1,3 @@
 export interface ColorMapping {
-    [tipo: string]: string;
+  [tipo: string]: string;
 }
