@@ -1,20 +1,23 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
 import { Pokemon } from '../../models/pokemon';
-import { colorByTypeMapping } from '../../utils/color-by-type-mapping';
-import { NgClass } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { convertToTitleCase } from '../../utils/convert-to-title-case';
+import { CardPokemon } from '../card-pokemon/card-pokemon';
+import { changePokemonStatus, favoritesPokemon } from '../../utils/favorites-pokemon';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-pokemon-list',
-  imports: [NgClass, RouterLink],
+  imports: [CardPokemon, RouterLink],
   templateUrl: './pokemon-list.html',
 })
 export class PokemonList implements OnInit {
   public pokemons: Pokemon[] = [];
-  public colorByTypeMapping = colorByTypeMapping;
+  public favoritesPokemon = favoritesPokemon;
+  public changePokemonStatus = changePokemonStatus;
+  public convertToTitleCase = convertToTitleCase;
   public theBest: string = '';
+
   private readonly url: string = 'https://pokeapi.co/api/v2/pokemon/?limit=10';
   private readonly http = inject(HttpClient);
 
@@ -30,16 +33,18 @@ export class PokemonList implements OnInit {
         });
       }
 
-      const charizard = arrayResults.find((p) => p.name == 'charmander');
+      const charizard = arrayResults.find((p) => p.name == 'charizard');
       this.theBest = charizard.name;
     });
   }
+
   private getPokemon(obj: any): Pokemon {
     return {
       id: obj.id,
       name: convertToTitleCase(obj.name),
       urlSprite: obj.sprites.front_default,
       types: obj.types.map((x: any) => convertToTitleCase(x.type.name)),
+      favorite: favoritesPokemon.some((p) => p.id == obj.id),
     };
   }
 }

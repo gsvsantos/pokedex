@@ -3,6 +3,7 @@ export interface Pokemon {
   name: string;
   urlSprite?: string;
   types: string[];
+  favorite: boolean;
 }
 
 export interface ThisPokemonDetails extends Pokemon {

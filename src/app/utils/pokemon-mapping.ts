@@ -1,5 +1,6 @@
 import { PokemonCries, ThisPokemonDetails } from '../models/pokemon';
 import { convertToTitleCase } from './convert-to-title-case';
+import { favoritesPokemon } from './favorites-pokemon';
 
 export function mapearDetalhesPokemon(obj: any): ThisPokemonDetails {
   const sprites: string[] = [
@@ -18,6 +19,7 @@ export function mapearDetalhesPokemon(obj: any): ThisPokemonDetails {
     sprites: sprites,
     types: obj.types.map((x: any) => convertToTitleCase(x.type.name)),
     cries: mapearSonsDoPokemon(obj.cries),
+    favorite: favoritesPokemon.some((p) => p.id == obj.id),
   };
 }
 

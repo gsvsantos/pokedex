@@ -1,21 +1,30 @@
+<h1>Pokemon List</h1>
+
+<hr />
+<h3>The Best: {{ convertToTitleCase(theBest) }}</h3>
+<hr />
+
+<div class="row g-3">
+  @for (pokemon of favoritesPokemon; track pokemon.name) {
+  <div class="col-md-3">
+    <a [routerLink]="['pokemons', pokemon.id]">
+    <div class="card">
+      <div class="card-body text-center">
+        <img class="img-fluid" [src]="pokemon.urlSprite" [alt]="pokemon.name" />
+      </div>
+    </div></a>
+  </div>
+  }
+</div>
+
 <div class="row g-3">
   @for (pokemon of pokemons; track pokemon.name) {
   <div class="col-md-3">
-    <a class="text-decoration-none" [routerLink]="['/pokemons', pokemon.id]">
-      <div class="card text-center">
-        <p class="card-title fw-bolder fs-4">
-          {{ pokemon.name }}
-        </p>
-        <div class="d-flex justify-content-center gap-2">
-          @for (tipo of pokemon.types; track $index){
-          <span class="badge rounded-pill text-light fs-6" [ngClass]="colorByTypeMapping[tipo]">
-            {{ tipo }}
-          </span>
-          }
-        </div>
-        <img class="w-50 h-75 align-self-center" [src]="pokemon.urlSprite" [alt]="pokemon.name" />
-      </div>
-    </a>
+    <app-card-pokemon
+      [pokemon]="pokemon"
+      [showLink]="true"
+      (favoriteStateChanged)="changePokemonStatus($event)"
+    ></app-card-pokemon>
   </div>
   }
 </div>
