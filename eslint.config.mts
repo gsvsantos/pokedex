@@ -1,13 +1,14 @@
-// @ts-check
+// eslint.config.mts
 import eslint from '@eslint/js';
-import { defineConfig } from 'eslint/config';
 import tseslint from 'typescript-eslint';
+import { defineConfig } from 'eslint/config';
 
-export default defineConfig(
+export default defineConfig([
   // Bases recomendadas
   eslint.configs.recommended,
   tseslint.configs.recommended,
   tseslint.configs.recommendedTypeChecked, // usa info de tipos
+
   // Opções necessárias p/ regras "type-checked"
   {
     languageOptions: {
@@ -17,6 +18,8 @@ export default defineConfig(
       },
     },
   },
+
+  // Regras da casa (mesmas do .mjs)
   {
     rules: {
       // EXIGE tipo de retorno em TODAS as funções/métodos
@@ -27,7 +30,7 @@ export default defineConfig(
           allowTypedFunctionExpressions: true,
           allowHigherOrderFunctions: false,
           // opcional: ignore nomes específicos (ex.: callbacks do array)
-          // allowedNames: ['map', 'filter', 'reduce']
+          // allowedNames: ["map", "filter", "reduce"],
         },
       ],
 
@@ -38,15 +41,13 @@ export default defineConfig(
       '@typescript-eslint/explicit-member-accessibility': ['error', { accessibility: 'explicit' }],
 
       // NÃO reclame quando você quiser tipar explicitamente valores óbvios
-      // (por padrão, essa regra desencoraja "const x: number = 1")
       '@typescript-eslint/no-inferrable-types': 'off',
 
       // Proíbe “escapes” com any explícito
       '@typescript-eslint/no-explicit-any': ['error', { fixToUnknown: true }],
 
       // Opcional: evitar nomes muito curtos em variáveis (sem abreviar)
-      // Ajuste exceções p/ índices de loops, etc.
       'id-length': ['warn', { min: 3, exceptions: ['i', 'j', 'k', 'x', 'y', 'id'] }],
     },
-  }
-);
+  },
+]);

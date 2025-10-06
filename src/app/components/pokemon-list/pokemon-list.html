@@ -1,24 +1,22 @@
 <h1>Pokemon List</h1>
 
 <hr />
-<h3>The Best: {{ convertToTitleCase(theBest) }}</h3>
-<hr />
 
 <div class="row g-3">
   @for (pokemon of favoritesPokemon; track pokemon.name) {
   <div class="col-md-3">
     <a [routerLink]="['pokemons', pokemon.id]">
-    <div class="card">
-      <div class="card-body text-center">
-        <img class="img-fluid" [src]="pokemon.urlSprite" [alt]="pokemon.name" />
-      </div>
-    </div></a>
+      <div class="card">
+        <div class="card-body text-center">
+          <img class="img-fluid" [src]="pokemon.urlSprite" [alt]="pokemon.name" />
+        </div></div
+    ></a>
   </div>
   }
 </div>
 
 <div class="row g-3">
-  @for (pokemon of pokemons; track pokemon.name) {
+  @for (pokemon of pokemons$ | async; track pokemon.name) {
   <div class="col-md-3">
     <app-card-pokemon
       [pokemon]="pokemon"

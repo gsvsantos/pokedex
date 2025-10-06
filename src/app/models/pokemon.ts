@@ -8,7 +8,7 @@ export interface Pokemon {
 
 export interface ThisPokemonDetails extends Pokemon {
   cries: PokemonCries;
-  sprites: string[];
+  sprites: (string | undefined)[];
 }
 
 export interface PokemonCries {
