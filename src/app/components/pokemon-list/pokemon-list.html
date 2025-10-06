@@ -1,28 +1,30 @@
-<h1>Pokemon List</h1>
+<div class="main d-flex flex-column">
+  <h1>Pokemon List</h1>
 
-<hr />
+  <hr />
 
-<div class="row g-3">
-  @for (pokemon of favoritesPokemon; track pokemon.name) {
-  <div class="col-md-3">
-    <a [routerLink]="['pokemons', pokemon.id]">
-      <div class="card">
-        <div class="card-body text-center">
-          <img class="img-fluid" [src]="pokemon.urlSprite" [alt]="pokemon.name" />
-        </div></div
-    ></a>
+  <div class="row justify-content-center g-2 mt-3">
+    @for (pokemon of favoritesPokemon; track pokemon.name) {
+    <div class="col-md-3 w-auto" >
+      <a [routerLink]="['pokemons', pokemon.id]">
+        <div class="card border-2 rounded-circle">
+          <div class="card-body text-center">
+            <img class="img-fluid" [src]="pokemon.urlSprite" [alt]="pokemon.name" />
+          </div></div
+      ></a>
+    </div>
+    }
   </div>
-  }
-</div>
 
-<div class="row g-3">
-  @for (pokemon of pokemons$ | async; track pokemon.name) {
-  <div class="col-md-3">
-    <app-card-pokemon
-      [pokemon]="pokemon"
-      [showLink]="true"
-      (favoriteStateChanged)="changePokemonStatus($event)"
-    ></app-card-pokemon>
+  <div class="row g-3 mt-3">
+    @for (pokemon of pokemons$ | async; track pokemon.name) {
+    <div class="col-md-3">
+      <app-card-pokemon
+        [pokemon]="pokemon"
+        [showLink]="true"
+        (favoriteStateChanged)="changePokemonStatus($event)"
+      ></app-card-pokemon>
+    </div>
+    }
   </div>
-  }
 </div>
