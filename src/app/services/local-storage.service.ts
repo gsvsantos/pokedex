@@ -23,7 +23,8 @@ export class LocalStorageService {
     if (pokemon.favorite) {
       pokemon.favorite = false;
 
-      actualFavorites.filter((p) => p.id != pokemon.id);
+      const index = actualFavorites.findIndex((x) => x.id == pokemon.id);
+      if (index > -1) actualFavorites.splice(index, 1);
     } else {
       pokemon.favorite = true;
       actualFavorites.push(pokemon);
