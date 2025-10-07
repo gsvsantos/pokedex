@@ -8,7 +8,7 @@
     <app-card-pokemon
       [pokemon]="pokemonDetails"
       [showLink]="false"
-      (favoriteStateChanged)="changePokemonStatus($event)"
+      (favoriteStateChanged)="localStorageService.changePokemonStatus($event)"
     ></app-card-pokemon>
   </div>
   <div class="col">

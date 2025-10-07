@@ -1,7 +1,6 @@
 import { PokeApiDetailsResponse } from '../models/poke-api';
 import { Pokemon, PokemonCries, ThisPokemonDetails } from '../models/pokemon';
 import { convertToTitleCase } from './convert-to-title-case';
-import { favoritesPokemon } from './favorites-pokemon';
 
 export function mapPokemon(obj: PokeApiDetailsResponse): Pokemon {
   return {
@@ -9,7 +8,7 @@ export function mapPokemon(obj: PokeApiDetailsResponse): Pokemon {
     name: convertToTitleCase(obj.name),
     urlSprite: obj.sprites.front_default,
     types: obj.types.map((x: any) => convertToTitleCase(x.type.name)),
-    favorite: favoritesPokemon.some((p) => p.id == obj.id),
+    favorite: false,
   };
 }
 
@@ -30,7 +29,7 @@ export function mapPokemonDetails(obj: PokeApiDetailsResponse): ThisPokemonDetai
     sprites: sprites,
     types: obj.types.map((x: any) => convertToTitleCase(x.type.name)),
     cries: mapPokemonCries(obj.cries),
-    favorite: favoritesPokemon.some((p) => p.id == obj.id),
+    favorite: false,
   };
 }
 
