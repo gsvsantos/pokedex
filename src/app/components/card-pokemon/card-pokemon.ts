@@ -24,7 +24,7 @@ import { RouterLink } from '@angular/router';
       <div class="d-flex justify-content-center gap-2">
         @for (tipo of pokemon.types; track $index){
         <span
-          class="badge rounded-pill text-light"
+          class="badge rounded-pill text-light fs-8 fs-md-6"
           [ngClass]="colorByTypeMapping[tipo]"
         >
           {{ tipo }}

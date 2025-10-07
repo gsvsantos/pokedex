@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Pokemon } from '../models/pokemon';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -38,6 +38,10 @@ export class LocalStorageService {
   }
 
   public getFavorites(): Observable<Pokemon[]> {
-    return this.favoritesPokemonSubject.asObservable();
+    return this.favoritesPokemonSubject.asObservable().pipe(
+      map((favorites) => {
+        return [...favorites].sort((a, b) => a.id - b.id);
+      })
+    );
   }
 }
