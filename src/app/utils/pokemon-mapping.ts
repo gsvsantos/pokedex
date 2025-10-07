@@ -6,7 +6,7 @@ export function mapPokemon(obj: PokeApiDetailsResponse): Pokemon {
   return {
     id: obj.id,
     name: convertToTitleCase(obj.name),
-    urlSprite: obj.sprites.front_default,
+    urlSprite: obj.sprites.other['official-artwork'].front_default,
     types: obj.types.map((x: any) => convertToTitleCase(x.type.name)),
     favorite: false,
   };
@@ -25,7 +25,7 @@ export function mapPokemonDetails(obj: PokeApiDetailsResponse): ThisPokemonDetai
   return {
     id: obj.id,
     name: convertToTitleCase(obj.name),
-    urlSprite: obj.sprites.front_default,
+    urlSprite: obj.sprites.other['official-artwork'].front_default,
     sprites: sprites,
     types: obj.types.map((x: any) => convertToTitleCase(x.type.name)),
     cries: mapPokemonCries(obj.cries),

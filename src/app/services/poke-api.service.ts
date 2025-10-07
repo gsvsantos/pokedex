@@ -10,7 +10,7 @@ import { LocalStorageService } from './local-storage.service';
   providedIn: 'root', // singleton
 })
 export class PokeApiService {
-  private readonly url: string = 'https://pokeapi.co/api/v2/pokemon/';
+  private readonly url: string = 'https://pokeapi.co/api/v2/pokemon/?limit=24';
   private readonly http = inject(HttpClient);
   public readonly localStorageService = inject(LocalStorageService);
 
@@ -26,7 +26,7 @@ export class PokeApiService {
         return objDetails
           .map((d) => mapPokemon(d))
           .map((p) => ({ ...p, favorite: favorites.some((f) => f.id === p.id) }));
-      }),
+      })
     );
   }
 
@@ -41,7 +41,7 @@ export class PokeApiService {
         details.favorite = pokemonAlreadyFavorited;
 
         return details;
-      }),
+      })
     );
   }
 }
