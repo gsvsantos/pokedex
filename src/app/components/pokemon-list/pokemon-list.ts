@@ -4,7 +4,7 @@ import { convertToTitleCase } from '../../utils/convert-to-title-case';
 import { CardPokemon } from '../card-pokemon/card-pokemon';
 import { RouterLink } from '@angular/router';
 import { PokeApiService } from '../../services/poke-api.service';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { LocalStorageService } from '../../services/local-storage.service';
 
@@ -22,8 +22,8 @@ export class PokemonList implements OnInit {
   private readonly pokeApiService = inject(PokeApiService);
 
   public ngOnInit(): void {
-    this.pokemons$ = this.pokeApiService.getPokemonList();
-    
     this.favoritesPokemon$ = this.localStorageService.getFavorites();
+
+    this.pokemons$ = this.pokeApiService.getPokemonList();
   }
 }

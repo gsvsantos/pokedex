@@ -6,7 +6,7 @@ import { BehaviorSubject, map, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class LocalStorageService {
-  private readonly key: string = 'pokedex:favortes';
+  private readonly key: string = 'pokedex:favorites';
   private readonly favoritesPokemonSubject = new BehaviorSubject<Pokemon[]>([]);
 
   constructor() {

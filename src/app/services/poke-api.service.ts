@@ -10,12 +10,14 @@ import { LocalStorageService } from './local-storage.service';
   providedIn: 'root', // singleton
 })
 export class PokeApiService {
-  private readonly url: string = 'https://pokeapi.co/api/v2/pokemon/?limit=24';
+  private readonly mainUrl: string = 'https://pokeapi.co/api/v2/pokemon';
   private readonly http = inject(HttpClient);
   public readonly localStorageService = inject(LocalStorageService);
 
   public getPokemonList(): Observable<Pokemon[]> {
-    return this.http.get<PokeApiResponse>(this.url).pipe(
+    const fullUrl = `${this.mainUrl}/?limit=24`;
+
+    return this.http.get<PokeApiResponse>(fullUrl).pipe(
       switchMap((req) => {
         const requests = req.results.map((r) => this.http.get<PokeApiDetailsResponse>(r.url));
 
@@ -26,22 +28,26 @@ export class PokeApiService {
         return objDetails
           .map((d) => mapPokemon(d))
           .map((p) => ({ ...p, favorite: favorites.some((f) => f.id === p.id) }));
-      })
+      }),
+      tap(console.log)
     );
   }
 
   public getPokemonDetails(pokemonId: number): Observable<ThisPokemonDetails> {
-    const urlCompleto = `${this.url}/${pokemonId}`;
+    const detailUrl = `${this.mainUrl}/${pokemonId}`;
 
-    return this.http.get<PokeApiDetailsResponse>(urlCompleto).pipe(
+    return this.http.get<PokeApiDetailsResponse>(detailUrl).pipe(
+      tap(console.log),
       withLatestFrom(this.localStorageService.getFavorites()),
       map(([objDetails, favorites]) => {
         const pokemonAlreadyFavorited = favorites.some((f) => f.id === objDetails.id);
+        
         const details = mapPokemonDetails(objDetails);
         details.favorite = pokemonAlreadyFavorited;
 
         return details;
-      })
+      }),
+      tap(console.log)
     );
   }
 }

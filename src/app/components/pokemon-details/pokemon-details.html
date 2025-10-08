@@ -12,13 +12,16 @@
     ></app-card-pokemon>
   </div>
   <div class="col">
-    <div class="d-grid">
+    <div class="d-grid my-2">
       <div class="d-flex justify-content-between align-items-center">
-        <h2 class="mb-0 fw-bolder fs-4">
-          {{ pokemonDetails?.name }}
-        </h2>
+        <div class="d-flex align-items-center gap-2">
+          <span class="text-light bg-info rounded-5 border border-1 p-1 fs-4 fw-bolder"
+            >#{{ pokemonDetails.id }}</span
+          >
+          <h2 class="mb-0 fw-bolder fs-4">{{ pokemonDetails.name }}</h2>
+        </div>
         <div class="d-flex jusitfy-content-center gap-2">
-          @for (tipo of pokemonDetails?.types; track $index){
+          @for (tipo of pokemonDetails.types; track $index){
           <span class="badge rounded-pill text-light fs-6" [ngClass]="colorByTypeMapping[tipo]">
             {{ tipo }}
           </span>
@@ -31,7 +34,7 @@
         <h3 class="fw-normal">Sprites</h3>
 
         <div class="row g-3 mt-3">
-          @for (sprite of pokemonDetails?.sprites; track $index) {
+          @for (sprite of pokemonDetails.sprites; track $index) {
           <div class="col-2">
             <div class="card h-100">
               <div class="card-body">
@@ -60,13 +63,13 @@
             <tbody>
               <tr>
                 <td>
-                  <audio controls style="height: 40px; max-width: 180px" class="mt-2">
+                  <audio class="mt-2" controls style="height: 40px; max-width: 180px">
                     <source [src]="pokemonDetails.cries.actual" type="audio/ogg" />
                     Seu navegador não suporta o elemento audio.
                   </audio>
                 </td>
                 <td>
-                  <audio controls style="height: 40px; max-width: 180px" class="mt-2">
+                  <audio class="mt-2" controls style="height: 40px; max-width: 180px">
                     <source [src]="pokemonDetails.cries.oldest" type="audio/ogg" />
                     Seu navegador não suporta o elemento audio.
                   </audio>
